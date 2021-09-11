@@ -1,11 +1,17 @@
 const router = require("express").Router();
+const {
+  getConfig,
+  createConfig,
+  updateConfig,
+  deleteConfig,
+} = require("../controllers/config");
 
-router.get("/");
+router.get("/", getConfig);
 
-router.post("/");
+router.post("/", createConfig);
 
-router.put("/:id");
+router.put("/:id", updateConfig);
 
-router.delete("/:id");
+router.delete("/:id", deleteConfig);
 
 module.exports = router;
