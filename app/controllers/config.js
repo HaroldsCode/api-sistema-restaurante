@@ -4,7 +4,7 @@ const configModel = require("../modules/config");
 
 const getConfig = async (req, res) => {
   try {
-    const response = await configModel.find({});
+    const response = await configModel.findOne({});
     res.json({
       status: 200,
       data: response,
