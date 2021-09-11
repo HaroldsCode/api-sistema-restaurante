@@ -1,6 +1,7 @@
 const httpError = require('../helpers/handleError');
+const categoriesModel = require("../modules/categories");
 
-const hasValues = async ( req, res, next) => {
+const hasValues =  ( req, res, next) => {
     try {
         const {name, type, price, image, ingredients} = req.body;
         if(!!name && !!type && !!price && !!image && !!ingredients)
@@ -12,7 +13,7 @@ const hasValues = async ( req, res, next) => {
     }
 }
 
-
 module.exports = {
-    hasValues
+    hasValues,
+    existCategories
 }
