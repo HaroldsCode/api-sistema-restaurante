@@ -14,6 +14,5 @@ const hasValues =  ( req, res, next) => {
 }
 
 module.exports = {
-    hasValues,
-    existCategories
+    hasValues
 }
