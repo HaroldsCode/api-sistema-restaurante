@@ -18,7 +18,6 @@ const getOneArticleByID = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await articleModel.find({ _id: id });
-    console.log(response);
     res.json({
       status: 200,
       data: response,
@@ -34,7 +33,6 @@ const getArticlesByType = async (req, res) => {
   try {
     const { type } = req.params;
     const response = await articleModel.find({ type });
-    console.log(response);
     res.json({
       status: 200,
       data: response,
