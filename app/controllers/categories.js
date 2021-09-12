@@ -18,7 +18,7 @@ const getCategories = async (req, res) => {
 const createCategories = async (req, res) => {
   try {
     const { category } = req.body;
-    const response = await categoriesModel.create({ category });
+    const response = await categoriesModel.create({ category: removeAcent(category) });
     res.json({
       status: 201,
       data: response,

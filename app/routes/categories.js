@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { canIDelete, canIDoThis } = require("../validations/categories");
+const { hasValues, canIDelete, canIDoThis } = require("../validations/categories");
 const {
   getCategories,
   createCategories,
@@ -9,9 +9,9 @@ const {
 
 router.get("/", getCategories);
 
-router.post("/", canIDoThis, createCategories);
+router.post("/", hasValues, canIDoThis, createCategories);
 
-router.put("/:id", canIDoThis, updateCategories);
+router.put("/:id", hasValues, canIDoThis, updateCategories);
 
 router.delete("/:id", canIDelete, deleteCategories);
 

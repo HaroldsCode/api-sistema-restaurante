@@ -1,7 +1,8 @@
 const httpError = (res, error) => {
-    res.status(500).json({
-        data: "No eres tú, soy yo. algo anda mal conmigo",
-        error: error
+    res.json({
+        status: 500,
+        data: error,
+        msg: "No eres tú, soy yo. algo anda mal conmigo"
     })
 }
 

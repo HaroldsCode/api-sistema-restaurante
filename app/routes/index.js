@@ -1,3 +1,4 @@
+require('dotenv').config()
 const router = require('express').Router();
 const fs = require('fs');
 
@@ -11,6 +12,7 @@ fs.readdirSync(pathRouter).forEach(file => {
     const route = removeExtension(file);
     const validation = ['index'].includes(route);
     if(!validation){
+        console.log(`http://localhost:${process.env.PORT}/api/${route}`)
         router.use(`/${route}`, require(`./${route}.js`))
     }
 })
