@@ -20,10 +20,6 @@ const ArticleScheme = new Mongoose.Schema({
         type: Boolean,
         default: true
     },
-    ingredients: {
-        type: [String],
-        required: true
-    },
     restricted: {
         type: Boolean,
         default: true

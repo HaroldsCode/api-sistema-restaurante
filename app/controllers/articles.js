@@ -46,13 +46,12 @@ const getArticlesByType = async (req, res) => {
 
 const createArticle = async (req, res) => {
   try {
-    const { name, type, price, image, ingredients } = req.body;
+    const { name, type, price, image } = req.body;
     const response = await articleModel.create({
       name,
       type,
       price: parseInt(price),
-      image,
-      ingredients,
+      image
     });
     res.json({
       status: 201,
@@ -67,7 +66,7 @@ const createArticle = async (req, res) => {
 const updateArticle = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, type, price, image, hidden, ingredients, restricted } =
+    const { name, type, price, image, hidden, restricted } =
       req.body;
     const response = await articleModel.findByIdAndUpdate(
       id,
@@ -77,7 +76,6 @@ const updateArticle = async (req, res) => {
         price: parseInt(price),
         image,
         hidden: !!hidden,
-        ingredients,
         restricted: !!restricted,
       },
       { new: true }
