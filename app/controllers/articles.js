@@ -1,5 +1,6 @@
 const httpError = require("../helpers/handleError");
 const articleModel = require("../modules/articles");
+const { convertStringToBoolean } = require('../validations/articles');
 
 const getArticle = async (req, res) => {
   try {
@@ -66,24 +67,51 @@ const createArticle = async (req, res) => {
 const updateArticle = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, type, price, image, hidden, restricted } =
+    const { name, type, price, image } =
       req.body;
     const response = await articleModel.findByIdAndUpdate(
-      id,
+      { id },
       {
         name,
         type,
         price: parseInt(price),
-        image,
-        hidden: !!hidden,
-        restricted: !!restricted,
-      },
-      { new: true }
+        image
+      }
     );
     res.json({
       status: 201,
       data: response,
       msg: "Articulo actualizado",
+    });
+  } catch (error) {
+    httpError(res, error);
+  }
+};
+
+const updateVisibilityArticle = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { hidden } = req.body;
+    const response = await articleModel.updateOne( { id }, { hidden: convertStringToBoolean(hidden) } );
+    res.json({
+      status: 201,
+      data: response,
+      msg: null,
+    });
+  } catch (error) {
+    httpError(res, error);
+  }
+};
+
+const updateRestintionArticle = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { restricted } = req.body;
+    const response = await articleModel.updateOne( { id }, { restricted: convertStringToBoolean(restricted) } );
+    res.json({
+      status: 201,
+      data: response,
+      msg: null,
     });
   } catch (error) {
     httpError(res, error);
@@ -110,5 +138,7 @@ module.exports = {
   getArticlesByType,
   createArticle,
   updateArticle,
+  updateRestintionArticle,
+  updateVisibilityArticle,
   deleteArticle,
 };
