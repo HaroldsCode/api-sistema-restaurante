@@ -68,15 +68,16 @@ const createArticle = async (req, res) => {
 const updateArticle = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, type, price, image } =
-      req.body;
+    const { name, type, price, image } = req.body;
     const response = await articleModel.findByIdAndUpdate(
-      { id },
+      id ,
       {
         name,
         type,
         price: parseInt(price),
         image
+      },{
+        new: true
       }
     );
     res.json({
