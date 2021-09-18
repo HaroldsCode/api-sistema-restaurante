@@ -47,12 +47,11 @@ const getArticlesByType = async (req, res) => {
 
 const createArticle = async (req, res) => {
   try {
-    const { name, type, price, image, restricted } = req.body;
+    const { name, type, price, restricted } = req.body;
     const response = await articleModel.create({
       name,
       type,
       price: parseInt(price),
-      image,
       restricted: convertStringToBoolean(restricted)
     });
     res.json({
@@ -68,14 +67,13 @@ const createArticle = async (req, res) => {
 const updateArticle = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, type, price, image } = req.body;
+    const { name, type, price } = req.body;
     const response = await articleModel.findByIdAndUpdate(
       id ,
       {
         name,
         type,
         price: parseInt(price),
-        image
       },{
         new: true
       }

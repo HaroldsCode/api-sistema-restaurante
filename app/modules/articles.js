@@ -12,10 +12,6 @@ const ArticleScheme = new Mongoose.Schema({
         type: Number,
         required: true
     },
-    image: {
-        type: String,
-        required: true
-    },
     hidden: {
         type: Boolean,
         default: true
