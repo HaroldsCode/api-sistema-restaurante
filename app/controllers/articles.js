@@ -18,7 +18,7 @@ const getArticle = async (req, res) => {
 const getOneArticleByID = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await articleModel.find({ _id: id });
+    const response = await articleModel.findOne({ _id: id });
     res.json({
       status: 200,
       data: response,

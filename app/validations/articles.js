@@ -6,7 +6,7 @@ const hasValues =  ( req, res, next) => {
         if(!!name && !!type && !!price)
             next();
         else
-            res.json({ state: 403, data: null, msg: "Se espera que todos los campos se hayan sidos llenados" });
+            res.json({ state: 403, data: null, msg: "Se espera que todos los campos hayan sidos llenados" });
     } catch (error) {
         httpError(res, error)
     }
@@ -15,7 +15,9 @@ const hasValues =  ( req, res, next) => {
 const hiddenHasValue = ( req, res, next ) => {
     try {
         const { hidden } = req.body;
-        if(!!hidden){
+        if(typeof hidden === "boolean"){
+            next();
+        } else if(!!hidden){
             if(hidden.trim().toLowerCase() === "true" || hidden.trim().toLowerCase() === "false")
                 next();
             else
@@ -30,7 +32,9 @@ const hiddenHasValue = ( req, res, next ) => {
 const restrictedHasValue = ( req, res, next ) => {
     try {
         const { restricted } = req.body;
-        if(!!restricted){
+        if(typeof restricted === "boolean"){
+            next();
+        } else if(!!restricted){
             if(restricted.trim().toLowerCase() === "true" || restricted.trim().toLowerCase() === "false")
                 next();
             else
@@ -43,8 +47,10 @@ const restrictedHasValue = ( req, res, next ) => {
 }
 
 const convertStringToBoolean = ( string ) => {
-    if(!!string)
-        return (string.toString() === 'false') ? false : true;
+    if(typeof string === "boolean")
+        return string;
+    else if(!!string)
+        return (string === 'false') ? false : true;
     else
         return true;
 }
