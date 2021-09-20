@@ -43,7 +43,10 @@ const restrictedHasValue = ( req, res, next ) => {
 }
 
 const convertStringToBoolean = ( string ) => {
-    return (string === 'false') ? false : true
+    if(!!string)
+        return (string.toString() === 'false') ? false : true;
+    else
+        return true;
 }
 module.exports = {
     hasValues,

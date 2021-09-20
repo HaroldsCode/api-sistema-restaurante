@@ -47,11 +47,12 @@ const getArticlesByType = async (req, res) => {
 
 const createArticle = async (req, res) => {
   try {
-    const { name, type, price, restricted } = req.body;
+    const { name, type, price, hidden, restricted } = req.body;
     const response = await articleModel.create({
       name,
       type,
       price: parseInt(price),
+      hidden: convertStringToBoolean(hidden),
       restricted: convertStringToBoolean(restricted)
     });
     res.json({
