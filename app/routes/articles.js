@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { hasValues, hiddenHasValue, restrictedHasValue } = require("../validations/articles");
+const { hasValues, existCategory, hiddenHasValue, restrictedHasValue } = require("../validations/articles");
 const {
   getArticle,
   getOneArticleByID,
@@ -17,7 +17,7 @@ router.get("/:id", getOneArticleByID);
 
 router.get("/lista/:type", getArticlesByType);
 
-router.post("/", hasValues, createArticle);
+router.post("/", hasValues, existCategory, createArticle);
 
 router.put("/:id", hasValues, updateArticle);
 
