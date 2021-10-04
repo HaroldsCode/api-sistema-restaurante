@@ -1,6 +1,7 @@
 const httpError = require("../helpers/handleError");
 const articleModel = require("../modules/articles");
 const { convertStringToBoolean } = require('../validations/articles');
+const { removeAcent } = require('../validations/categories');
 
 const getArticle = async (req, res) => {
   try {
@@ -50,7 +51,7 @@ const createArticle = async (req, res) => {
     const { name, type, price, hidden, restricted } = req.body;
     const response = await articleModel.create({
       name,
-      type,
+      type: removeAcent(type),
       price: parseInt(price),
       hidden: convertStringToBoolean(hidden),
       restricted: convertStringToBoolean(restricted)
@@ -73,7 +74,7 @@ const updateArticle = async (req, res) => {
       id ,
       {
         name,
-        type,
+        type: removeAcent(type),
         price: parseInt(price),
       },{
         new: true
