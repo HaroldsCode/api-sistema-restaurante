@@ -74,7 +74,9 @@ const updater = async (category, type) => {
 const deleteCategories = async (req, res) => {
   try {
     const { id } = req.params;
+    const category = await categoriesModel.findOne({ _id: id } ,{ category: 1 , _id: 0 });
     const response = await categoriesModel.findByIdAndDelete(id);
+    deleter(category)
     res.json({
       status: 200,
       data: response,
@@ -84,6 +86,13 @@ const deleteCategories = async (req, res) => {
     httpError(res, error);
   }
 };
+
+const deleter = async (type) => {
+  const articles = await articleModel.find({ type: type.category })
+  articles.forEach(async (article) => {
+    await articleModel.deleteOne({ _id: article._id })
+  })
+}
 
 module.exports = {
   getCategories,
