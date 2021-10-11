@@ -4,7 +4,7 @@ const { removeAcent } = require("../validations/categories");
 
 const hasValues =  ( req, res, next) => {
     try {
-        const {name, type, price} = req.body;
+        const {name, type, price , hidden, restricted} = req.body;
         if(!!name && !!type && !!price)
             next();
         else

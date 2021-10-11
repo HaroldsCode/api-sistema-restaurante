@@ -69,7 +69,7 @@ const createArticle = async (req, res) => {
 const updateArticle = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, type, price } = req.body;
+    const { name, type, price, hidden, restricted } = req.body;
     const response = await articleModel.findByIdAndUpdate(
       id ,
       {
@@ -84,36 +84,6 @@ const updateArticle = async (req, res) => {
       status: 201,
       data: response,
       msg: "Articulo actualizado",
-    });
-  } catch (error) {
-    httpError(res, error);
-  }
-};
-
-const updateVisibilityArticle = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { hidden } = req.body;
-    const response = await articleModel.updateOne( { id }, { hidden: convertStringToBoolean(hidden) } );
-    res.json({
-      status: 201,
-      data: response,
-      msg: null,
-    });
-  } catch (error) {
-    httpError(res, error);
-  }
-};
-
-const updateRestintionArticle = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { restricted } = req.body;
-    const response = await articleModel.updateOne( { id }, { restricted: convertStringToBoolean(restricted) } );
-    res.json({
-      status: 201,
-      data: response,
-      msg: null,
     });
   } catch (error) {
     httpError(res, error);
@@ -140,7 +110,5 @@ module.exports = {
   getArticlesByType,
   createArticle,
   updateArticle,
-  updateRestintionArticle,
-  updateVisibilityArticle,
   deleteArticle,
 };
