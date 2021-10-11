@@ -15,6 +15,20 @@ const getCategories = async (req, res) => {
   }
 };
 
+const getCategoryById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await categoriesModel.findOne({ _id: id });
+    res.json({
+      status: 200,
+      data: response,
+      msg: null,
+    });
+  } catch (error) {
+    httpError(res, error);
+  }
+};
+
 const createCategories = async (req, res) => {
   try {
     const { category } = req.body;
@@ -64,6 +78,7 @@ const deleteCategories = async (req, res) => {
 
 module.exports = {
   getCategories,
+  getCategoryById,
   createCategories,
   updateCategories,
   deleteCategories,
