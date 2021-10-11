@@ -76,6 +76,8 @@ const updateArticle = async (req, res) => {
         name,
         type: removeAcent(type),
         price: parseInt(price),
+        hidden: convertStringToBoolean(hidden),
+        restricted: convertStringToBoolean(restricted)
       },{
         new: true
       }
