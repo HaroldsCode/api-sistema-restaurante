@@ -18,7 +18,6 @@ const canIDoThis = async (req, res, next) => {
     try {
         const { category } = req.body;
         const categories = await categoriesModel.find({category: removeAcent(category)}, {_id: 0, category: 1}).count();
-        console.log(categories)
         if (categories > 0){
             res.json({
                 status: 403,

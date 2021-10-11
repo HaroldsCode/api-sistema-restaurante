@@ -1,6 +1,7 @@
 const httpError = require("../helpers/handleError");
 const { removeAcent } = require("../validations/categories");
 const categoriesModel = require("../modules/categories");
+const articleModel = require("../modules/articles");
 
 const getCategories = async (req, res) => {
   try {
@@ -50,17 +51,25 @@ const updateCategories = async (req, res) => {
     const response = await categoriesModel.findByIdAndUpdate(
       id,
       { category: removeAcent(category) },
-      { new: true }
+      { new: false }
     );
+    updater(response.category, category)
     res.json({
       status: 201,
-      data: response,
+      data: null,
       msg: "Categoria actualizada",
     });
   } catch (error) {
     httpError(res, error);
   }
 };
+
+const updater = async (category, type) => {
+  const articles = await articleModel.find({ type: removeAcent(category) })
+  articles.forEach(async (article) => {
+    await articleModel.updateOne({ _id: article._id }, { type: removeAcent(type) })
+  })
+}
 
 const deleteCategories = async (req, res) => {
   try {
