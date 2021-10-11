@@ -6,8 +6,6 @@ const {
   getArticlesByType,
   createArticle,
   updateArticle,
-  updateVisibilityArticle,
-  updateRestintionArticle,
   deleteArticle,
 } = require("../controllers/articles");
 
@@ -20,10 +18,6 @@ router.get("/lista/:type", getArticlesByType);
 router.post("/", hasValues, existCategory, createArticle);
 
 router.put("/:id", hasValues, updateArticle);
-
-router.patch("/hidden/:id", hiddenHasValue, updateVisibilityArticle);
-
-router.patch("/restricted/:id", restrictedHasValue, updateRestintionArticle);
 
 router.delete("/:id", deleteArticle);
 
